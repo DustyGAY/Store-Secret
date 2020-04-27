@@ -20,15 +20,19 @@ Run::Run() {
 	if (!(outfile1 >> p_count))
 		p_count = 0;
 	outfile1.get();
-	for (int i = 0; i < p_count; i++)
+	for (int i = 0; i < p_count; i++) {
 		outfile1 >> programkey[i];
+		outfile1.get();
+	}
 	outfile1.close();
 	std::ifstream outfile2("W_data.txt");
 	if (!(outfile2 >> w_count))
 		w_count = 0;
 	outfile2.get();
-	for (int i = 0; i < w_count; i++)
+	for (int i = 0; i < w_count; i++) {
 		outfile2 >> webkey[i];
+		outfile2.get();
+	}
 	outfile2.close();
 }
 
@@ -108,7 +112,7 @@ void Run::Delete_data() {
 				while (1) {
 					std::cin.get(number, Max_Storage * 2);
 					std::cin.ignore(1024, '\n');
-					if (number[0] == '~' || number[1] == '\0')
+					if (number[0] == '~' && number[1] == '\0')
 						break;
 					int num;
 					bool flag = C_to_n(number, num);
@@ -132,7 +136,7 @@ void Run::Delete_data() {
 					while (1) {
 						std::cin.get(number, Max_Storage * 2);
 						std::cin.ignore(1024, '\n');
-						if (number[0] == '~' || number[1] == '\0')
+						if (number[0] == '~' && number[1] == '\0')
 							break;
 						int num;
 						bool flag = C_to_n(number, num);
@@ -171,7 +175,7 @@ void Run::Find_data(){
 				std::cout << "请输入网址(输入~取消)：\n";
 				std::cin.get(web, Web_length);
 				std::cin.ignore(1024, '\n');
-				if (web[0] == '~' || web[1] == '\0')
+				if (web[0] == '~' && web[1] == '\0')
 					break;
 				bool flag = 0;
 				for (int i = 0; i < w_count; i++)
@@ -190,10 +194,10 @@ void Run::Find_data(){
 					std::cout << "请输入程序名(输入~取消)：\n";
 					std::cin.get(program, Program_length);
 					std::cin.ignore(1024, '\n');
-					if (program[0] == '~' || program[1] == '\0')
+					if (program[0] == '~' && program[1] == '\0')
 						break;
 					bool flag = 0;
-					for (int i = 0; i < w_count; i++)
+					for (int i = 0; i < p_count; i++)
 						if (programkey[i].Programcmp(program)) {
 							std::cout << i + 1 << '.' << programkey[i];
 							flag = 1;
